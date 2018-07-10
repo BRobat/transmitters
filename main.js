@@ -40,9 +40,9 @@ function getDataFromInputs() {
     let inputLen = document.getElementsByClassName("inputX").length;
     let inputsX = document.getElementsByClassName("inputX");
     let inputsY = document.getElementsByClassName("inputY");
-
+    let inputsP = document.getElementsByClassName("inputPower");
     for(let i = 0; i < inputLen; i++) {
-        
+        let circle = {}
         console.log(inputsX[i].value);
     }   
 }
@@ -70,7 +70,4 @@ function giveGreenLight(c1, c2) {
     }
 }
 
-function createObjects() {
-    // creates object
-}
 
