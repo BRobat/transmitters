@@ -1,0 +1,19 @@
+body {
+
+}
+
+button{
+    margin: 10px;
+    padding: 5px;
+
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+input {
+    margin-top: 10px;
+    width: 100px;
+    font-size: 18px;
+
+}
+

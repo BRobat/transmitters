@@ -1,7 +1,15 @@
+
+
+
+
+
 function setNumberOfTransmitters() {
-    let parent = document.getElementById("parentElement");
+    let parent = document.getElementById("transmitters");
     let value = document.getElementById("numberOfTransmitters").value;
-    console.log(value);
+
+    
+
+
 
     for (let i = 1; i <= value; i++) {
         let div = document.createElement("div");
@@ -34,6 +42,8 @@ function setNumberOfTransmitters() {
         div.appendChild(inputY);
         div.appendChild(inputPower);
     }
+   
+
 }
 
 function getDataFromInputs() {
@@ -53,7 +63,7 @@ function getDataFromInputs() {
     let greenCircles = [];
     let redCircles = [];
 
-    let parent = document.getElementById("parentElement");
+    let parent = document.getElementById("solution");
 
     // create an array of circles.
     for(let i = 0; i < inputLen; i++) {

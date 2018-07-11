@@ -12,23 +12,28 @@
 
 <body>
     <div id="parentElement">
-        <label>dodaj nadajniki: </label>
-        <input id="numberOfTransmitters" type="number">
-    </div>
-    <button onclick="setNumberOfTransmitters()">dodaj transmitery</button>
-    <div>
-        <label>punkt początkowy: </label>
-        <input id="inputBX" type="number" placeholder="x">
-        <input id="inputBY" type="number" placeholder="y">
-    </div>
-    <div>
-        <label>punkt końcowy: </label>
-        <input id="inputEX" type="number" placeholder="x">
-        <input id="inputEY" type="number" placeholder="y">
-    </div>
-    <div>
-        <button onclick="getDataFromInputs()">sprawdź trasę</button>
-    </div>
+        <div id="transmitters">
+            <label>dodaj nadajniki: </label>
+            <input id="numberOfTransmitters" type="number">
+        </div>
+        <button id="addTransmitters" onclick="setNumberOfTransmitters()">dodaj nadajniki</button>
+        <div>
+            <label>punkt początkowy: </label>
+            <input id="inputBX" type="number" placeholder="x">
+            <input id="inputBY" type="number" placeholder="y">
+        </div>
+        <div>
+            <label>punkt końcowy: </label>
+            <input id="inputEX" type="number" placeholder="x">
+            <input id="inputEY" type="number" placeholder="y">
+        </div>
+        <div>
+            <button onclick="getDataFromInputs()">sprawdź trasę</button>
+        </div>
+        <div id="solution">
+
+        </div>
+        </div>
 </body>
 
 </html>
