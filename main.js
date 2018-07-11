@@ -66,24 +66,36 @@ function getDataFromInputs() {
         } else {
             redCircles.push(circle);
         }
-
         circles.push(circle);
     }   
     console.log("circles: ",circles,"green circles: ",greenCircles, "red circles: ",redCircles);
 
     for(let i = 0; i < greenCircles.length; i++) {
-        for(let j = 0; j < redCircles.length; j++) {
-            if(checkIfCirclesIntersect(greenCircles[i],redCircles[j])){
-                greenCircles.push(redCircles[j]);
+        if(redCircles.length > 1){
+            for(let j = 0; j < redCircles.length; j++) {
+                if(checkIfCirclesIntersect(greenCircles[i],redCircles[j])){
+                  greenCircles.push(redCircles[j]);
+                  redCircles.splice(j,1);
+                  console.log("greens: ", greenCircles[i], "reds: ", redCircles[j])
+                } else {
+                    console.log("false");
+                }
+                console.log("hey: ", greenCircles[i], redCircles[j], checkIfCirclesIntersect(greenCircles[i],redCircles[j]))
             }
-            console.log("circles: ",circles,"green circles: ",greenCircles, "red circles: ",redCircles);
         }
     }
+
+    console.log("circles: ",circles,"green circles: ",greenCircles, "red circles: ",redCircles);
     for(let i = 0; i < greenCircles.length; i++) {
         if(checkIfPointIsInside(ex,ey,greenCircles[i])){
             console.log("wygranko");
+            let forTheWin = document.createElement("label");
+            forTheWin.innerText = "bezpieczny przelot jest możliwy"
+            return
         }
     }
+    let forTheWin = document.createElement("label");
+    forTheWin.innerText = "bezpieczny przelot nie jest możliwy"
     console.log(circles);
 }
 
