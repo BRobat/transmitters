@@ -53,7 +53,7 @@ function getDataFromInputs() {
     let greenCircles = [];
     let redCircles = [];
 
-    
+    let parent = document.getElementById("parentElement");
 
     // create an array of circles.
     for(let i = 0; i < inputLen; i++) {
@@ -68,19 +68,16 @@ function getDataFromInputs() {
         }
         circles.push(circle);
     }   
-    console.log("circles: ",circles,"green circles: ",greenCircles, "red circles: ",redCircles);
 
     for(let i = 0; i < greenCircles.length; i++) {
-        if(redCircles.length > 1){
+        if(redCircles.length > 0){
             for(let j = 0; j < redCircles.length; j++) {
                 if(checkIfCirclesIntersect(greenCircles[i],redCircles[j])){
-                  greenCircles.push(redCircles[j]);
-                  redCircles.splice(j,1);
-                  console.log("greens: ", greenCircles[i], "reds: ", redCircles[j])
+                    greenCircles.push(redCircles[j]);
+                    redCircles.splice(j,1);
+                    console.log("greens: ", greenCircles[i], "reds: ", redCircles[j])
                 } else {
-                    console.log("false");
                 }
-                console.log("hey: ", greenCircles[i], redCircles[j], checkIfCirclesIntersect(greenCircles[i],redCircles[j]))
             }
         }
     }
@@ -88,14 +85,15 @@ function getDataFromInputs() {
     console.log("circles: ",circles,"green circles: ",greenCircles, "red circles: ",redCircles);
     for(let i = 0; i < greenCircles.length; i++) {
         if(checkIfPointIsInside(ex,ey,greenCircles[i])){
-            console.log("wygranko");
             let forTheWin = document.createElement("label");
-            forTheWin.innerText = "bezpieczny przelot jest możliwy"
+            forTheWin.innerText = "bezpieczny przelot jest możliwy";
+            parent.appendChild(forTheWin);
             return
         }
     }
     let forTheWin = document.createElement("label");
-    forTheWin.innerText = "bezpieczny przelot nie jest możliwy"
+    forTheWin.innerText = "bezpieczny przelot nie jest możliwy";
+    parent.appendChild(forTheWin);
     console.log(circles);
 }
 
@@ -108,7 +106,7 @@ function checkIfPointIsInside(px, py, c){
     if(isNaN(p)) {
         p = 0;
     }
-    console.log(x, y, p);
+    console.log("pointing: ",x, y, p);
     if (p <= c.power){
         return true;
     } else {
@@ -120,8 +118,8 @@ function checkIfCirclesIntersect(c1, c2) {
     // checks if the two circles intersect and then sets the other one as the one as good to go.
     let x = Math.abs(c1.x - c2.x);
     let y = Math.abs(c1.y - c2.y);
-    let p = Math.sqrt(Math.pow(x,2) + Math.pow(y,2)); // returns NaN instead of x
-    let cp = parseInt(c1.power) + parseInt(c2.power);
+    let p = Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
+    let cp = parseFloat(c1.power) + parseFloat(c2.power);
     if(isNaN(p)) {
         p = 0;
     }
@@ -131,8 +129,4 @@ function checkIfCirclesIntersect(c1, c2) {
     } else {
         return false;
     }
-}
-
-function giveGreenLight(c1) {
-    c1.greenLight = true;
 }
