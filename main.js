@@ -37,37 +37,90 @@ function setNumberOfTransmitters() {
 }
 
 function getDataFromInputs() {
+    // basically main function
+    //
     let inputLen = document.getElementsByClassName("inputX").length;
     let inputsX = document.getElementsByClassName("inputX");
     let inputsY = document.getElementsByClassName("inputY");
     let inputsP = document.getElementsByClassName("inputPower");
+
+    let bx = document.getElementById("inputBX").value;
+    let by = document.getElementById("inputBY").value;
+    let ex = document.getElementById("inputEX").value;
+    let ey = document.getElementById("inputEY").value;
+
+    let circles = [];
+    let greenCircles = [];
+    let redCircles = [];
+
+    
+
+    // create an array of circles.
     for(let i = 0; i < inputLen; i++) {
-        let circle = {}
-        console.log(inputsX[i].value);
+        let circle = { x: inputsX[i].value, y: inputsY[i].value, power: inputsP[i].value, greenLight: false };
+        
+        // check in which circle/s beginning point is. then give them greenLight
+        circle.greenLight = checkIfPointIsInside(bx, by, circle);
+        if(circle.greenLight) {
+            greenCircles.push(circle);
+        } else {
+            redCircles.push(circle);
+        }
+
+        circles.push(circle);
     }   
+    console.log("circles: ",circles,"green circles: ",greenCircles, "red circles: ",redCircles);
+
+    for(let i = 0; i < greenCircles.length; i++) {
+        for(let j = 0; j < redCircles.length; j++) {
+            if(checkIfCirclesIntersect(greenCircles[i],redCircles[j])){
+                greenCircles.push(redCircles[j]);
+            }
+            console.log("circles: ",circles,"green circles: ",greenCircles, "red circles: ",redCircles);
+        }
+    }
+    for(let i = 0; i < greenCircles.length; i++) {
+        if(checkIfPointIsInside(ex,ey,greenCircles[i])){
+            console.log("wygranko");
+        }
+    }
+    console.log(circles);
 }
 
-    // point x, point y, transmitter x, transmitter y, transmitter power
-function checkIfPointIsInside(px, py, tx, ty, tp){
-    // checks if given point lies within givn circle.
-    let y = Math.sqrt(Math.pow(py - ty));
-    let x = Math.sqrt(Math.pow(px - tx));
-    let p = Math.sqrt(Math.pow(x + y));
-    if (p <= tp){
+    // point x, point y, circle 
+function checkIfPointIsInside(px, py, c){
+    // checks if given point lies within given circle.
+    let y = Math.abs(py - c.y);
+    let x = Math.abs(px - c.x);
+    let p = Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
+    if(isNaN(p)) {
+        p = 0;
+    }
+    console.log(x, y, p);
+    if (p <= c.power){
         return true;
+    } else {
+        return false;
     }
 }
     // circles
-function giveGreenLight(c1, c2) {
+function checkIfCirclesIntersect(c1, c2) {
     // checks if the two circles intersect and then sets the other one as the one as good to go.
-    let x = Math.sqrt(Math.pow(c1.x - c2.x));
-    let y = Math.sqrt(Math.pow(c1.y - c2.y));
-    let p = Math.sqrt(Math.pow(x + y));
-    let cp = c1.p + c2.p;
+    let x = Math.abs(c1.x - c2.x);
+    let y = Math.abs(c1.y - c2.y);
+    let p = Math.sqrt(Math.pow(x,2) + Math.pow(y,2)); // returns NaN instead of x
+    let cp = parseInt(c1.power) + parseInt(c2.power);
+    if(isNaN(p)) {
+        p = 0;
+    }
+    console.log("intersecting: ",x,y,p,cp);
     if (p <= cp) {
-        c1.greenLight = true;
-        c2.greenLight = true;
+        return true;
+    } else {
+        return false;
     }
 }
 
-
+function giveGreenLight(c1) {
+    c1.greenLight = true;
+}
